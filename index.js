@@ -1,18 +1,10 @@
-function clock(){
-
-
-    var hours = document.getElementById("hours");
-    var minutes = document.getElementById("minutes");
-    var seconds = document.getElementById("seconds");
-    var am = document.getElementById("am");
-
-
-    var time = new Date();
-    var hr = time.getHours();
-    var min = time.getMinutes();
-    var sec = time.getSeconds();
-    var am_pm = "AM"
-
+var a,b,c;
+function myClock() {
+    let time = new Date();
+    let hr = time.getHours();
+    let min = time.getMinutes();
+    let sec = time.getSeconds();
+    let shifts = "AM"
 
     if (hr == 0) {
         hr = 12;
@@ -22,91 +14,131 @@ function clock(){
     }
     if (hr > 12) {
         hr = hr - 12;
-        am_pm = "PM";
+        shifts = "PM";
     }
+    if (min < 10) {
+        min = "0" + min;
+    }
+    if (sec < 10) {
+        sec = "0" + sec;
+    }
+
+
+    let hours = document.getElementById("hours");
+    hours.innerText = hr;
+
+    let mins = document.getElementById("mins");
+    mins.innerText = min;
+
+    let secs = document.getElementById("secs")
+    secs.innerText = sec;
+
+    let shifting = document.getElementById("am");
+    shifting.innerText = shifts;
+
+    newsettime();
+}
+
+setInterval(myClock, 1000);
+
+
+
+
+function newsettime(){
+        let hrs = new Date().getHours();
+        if(a==hrs)
+        {
+            document.querySelector("#right-inner1").innerText="Let's Have Some Breakfast!!";
+            document.querySelector("#right-inner2").style.backgroundImage="url(./wake-uptime-image.png)";
+        }
+        if(b==hrs)
+        {
+            document.querySelector("#right-inner1").innerText="Let's Have Some Lunch !!";
+            document.querySelector("#right-inner2").style.backgroundImage="url(./lunch-time-image.png)";
+        }
+        if(c==hrs)
+        {
+            document.querySelector("#right-inner1").innerText="Let's Go For Sleep";
+            document.querySelector("#right-inner2").style.backgroundImage="url(./night-image.png)";
+        }
+}
+
+
+
+
+function setYourGoal() {
+
+    let val1 = document.querySelector("#wake-up-time").value;
+    let val2 = document.querySelector("#lunch-time").value;
+    let val3 = document.querySelector("#nap-time").value;
+    a=val1;
+    b=val2;
+    c=val3;
+
+
+    let msg1 = document.querySelector(".div1");
+    let msg2 = document.querySelector(".div2");
+    let msg3 = document.querySelector(".div3");
+    console.log(typeof val1);
+    if(val1 !== "")
+    {
+        
+         if (val1 < 11) {
+            msg1.innerHTML = "wakeup-time :" + "0" + val1 + "am - 0" + (parseInt(val1) + 1) + "am";
+        }
+        else if (val1 == 11) {
+            msg1.innerText = "wakeup-time :" + val1 + "am -" + (parseInt(val1) + 1) + "pm";
+        }
+        else if (val1 >= 12 && val1 < 23) {
+            val1 = val1 - 12;
+            msg1.innerText = "wakeup-time :0" + val1 + "pm -0" + (parseInt(val1) + 1) + "pm";
+        }
+        else if (val1 == 23) {
+            val1 = val1 - 12;
+            msg1.innerText = "wakeup-time :" + val1 + "pm -" + parseInt(val1 + 1) + "am"
+        }
+    
+    }
+    
+    if(val2 !== "")
+    {
+        
+        if (val2 < 11) {
+            msg2.innerHTML = "lunch-time :" + "0" + val2 + "am - 0" + (parseInt(val2) + 1) + "am";
+        }
+        else if (val2 == 11) {
+            msg2.innerText = "lunch-time :" + val2 + "am -" + (parseInt(val2) + 1) + "pm";
+        }
+        else if (val2 >= 12 && val2 < 23) {
+            val2 = val2 - 12;
+            msg2.innerText = "lunch-time :0" + val2 + "pm -0" + (parseInt(val2) + 1) + "pm";
+        }
+        else if (val2 == 23) {
+            val2 = val2 - 12;
+            msg2.innerText = "lunch-time :" + val2 + "pm -" + parseInt(val2 + 1) + "am"
+        }
+    }
+    
+
+
+    if(val3 !== "")
+    {
+       
+        if (val3 < 11) {
+            msg3.innerHTML = "nap-time :" + "0" + val3 + "am - 0" + (parseInt(val3) + 1) + "am";
+        }
+        else if (val3 == 11) {
+            msg3.innerText = "nap-time :" + val3 + "am -" + (parseInt(val3) + 1) + "pm";
+        }
+        else if (val3 >= 12 && val3 < 23) {
+            val3 = val3 - 12;
+            msg3.innerText = "nap-time :0" + val3 + "pm -0" + (parseInt(val3) + 1) + "pm";
+        }
+        else if (val3 == 23) {
+            val3 = val3 - 12;
+            msg3.innerText = "nap-time :" + val3 + "pm -" + parseInt(val3 + 1) + "am"
+        };
+    } 
     
    
-          
-  /*
-            if (a > 12) {
-                a = a - 12;
-                am.innerText= "PM";
-                
-                am.pm = "PM";
-            }
-            if (a < 12) {
-             //   a = 12;
-                am.innerText="AM";
-            }
-*/
-
-    hours.innerHTML = hr;
-    minutes.innerHTML = min;
-    seconds.innerHTML = sec;
-    am.innerHTML = am_pm;
-}
-setInterval(clock,1000);
-
-
-
-function Makediv(){
-    
-    var container = document.createElement("div");
-    container.className="grid-item";
-    container.id="dynamic-block";
-
-    document.getElementById("left-container1").appendChild(container);
-
-    var invalue = document.getElementById("wakeuptimeselect");
-    var value = invalue.options[invalue.selectedIndex].text;
-    document.getElementById("div1").innerHTML="Wake up Time : " + value;
-
-    var invalue = document.getElementById("lunchtimeselect");
-    var value = invalue.options[invalue.selectedIndex].text;
-    document.getElementById("div2").innerHTML="Lunch Time : " + value;
-
-    var invalue = document.getElementById("naptimeselect");
-    var value = invalue.options[invalue.selectedIndex].text;
-    document.getElementById("div3").innerHTML="Nap Time : " + value;
-}
-
-
-
-
-
-function partytime(){
-    var i = document.getElementById("wakeuptimeselect").value;
-    var j = document.getElementById("lunchtimeselect").value;
-    var z = document.getElementById("naptimeselect").value;
-    var hourr = new Date().getHours();
-
-    if(i == hourr){
-
-        document.getElementById("container-image").style.backgroundImage="url(./wake-uptime-image.png)";
-        document.getElementById("container-text-h1").innerHTML="Wake Up !!";
-        document.getElementById("wishes-select").innerHTML="Good Morning !!";
-
-    }
-    if(j == hourr){
-        document.getElementById("container-image").style.backgroundImage="url(./lunch-time-image.png)";
-        document.getElementById("container-text-h1").innerHTML="Let's Have Some Lunch !!";
-        document.getElementById("wishes-select").innerHTML="Good Afternoon !!";
-    }
-    if(z == hourr){
-        document.getElementById("container-image").style.backgroundImage="url(./night-image.png)";
-        document.getElementById("container-text-h1").innerHTML="Good Night !!";
-        document.getElementById("wishes-select").innerHTML="Good Night !!";
-    }
-
-
-
-
-
-     
-
-
-
-
-    Makediv();
-    
 }    
